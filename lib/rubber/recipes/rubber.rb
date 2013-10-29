@@ -13,11 +13,11 @@ namespace :rubber do
   # Disable connecting to any Windows instance.
   alias :original_task :task
   def task(name, options={}, &block)
-    if options.has_key?(:only)
-      options[:only][:platform] = 'linux'
-    else
-      options[:only] = { :platform => 'linux' }
-    end
+    # if options.has_key?(:only)
+    #   options[:only][:platform] = 'linux'
+    # else
+    #   options[:only] = { :platform => 'linux' }
+    # end
 
     original_task(name, options, &block)
   end
@@ -44,7 +44,7 @@ namespace :rubber do
               top.roles[r] ||= []
             end
           end
-          
+
           if find_servers_for_task(current_task).empty?
             logger.info "No servers for task #{name}, skipping"
             next
@@ -57,7 +57,7 @@ namespace :rubber do
 
   allow_optional_tasks(self)
   on :load, "rubber:init"
-    
+
   required_task :init do
     set :rubber_cfg, Rubber::Configuration.get_configuration(Rubber.env)
     set :rubber_env, rubber_cfg.environment.bind()
