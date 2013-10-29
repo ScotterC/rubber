@@ -13,11 +13,11 @@ namespace :rubber do
   # Disable connecting to any Windows instance.
   alias :original_task :task
   def task(name, options={}, &block)
-    if options.has_key?(:only)
-      options[:only][:platform] = 'linux'
-    else
-      options[:only] = { :platform => 'linux' }
-    end
+    # if options.has_key?(:only)
+    #   options[:only][:platform] = 'linux'
+    # else
+    #   options[:only] = { :platform => 'linux' }
+    # end
 
     original_task(name, options, &block)
   end
@@ -31,11 +31,11 @@ namespace :rubber do
     class << ns
       alias :required_task :task
       def task(name, options={}, &block)
-        if options.has_key?(:only)
-          options[:only][:platform] = 'linux'
-        else
-          options[:only] = { :platform => 'linux' }
-        end
+        # if options.has_key?(:only)
+        #   options[:only][:platform] = 'linux'
+        # else
+        #   options[:only] = { :platform => 'linux' }
+        # end
 
         required_task(name, options) do
           # define empty roles for the case when a task has a role that we don't define anywhere
