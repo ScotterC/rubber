@@ -13,11 +13,11 @@ namespace :rubber do
   # Disable connecting to any Windows instance.
   alias :original_task :task
   def task(name, options={}, &block)
-    # if options.has_key?(:only)
-    #   options[:only][:platform] = 'linux'
-    # else
-    #   options[:only] = { :platform => 'linux' }
-    # end
+    if options.has_key?(:only)
+      options[:only][:platform] = 'linux'
+    else
+      options[:only] = { :platform => 'linux' }
+    end
 
     original_task(name, options, &block)
   end
@@ -69,11 +69,11 @@ namespace :rubber do
     default_run_options[:pty] = true if default_run_options[:pty].nil?
     default_run_options[:shell] = "/bin/bash -l" if default_run_options[:shell].nil?
 
-    if default_run_options.has_key?(:only)
-      default_run_options[:only][:platform] = 'linux'
-    else
-      default_run_options[:only] = { :platform => 'linux' }
-    end
+    # if default_run_options.has_key?(:only)
+    #   default_run_options[:only][:platform] = 'linux'
+    # else
+    #   default_run_options[:only] = { :platform => 'linux' }
+    # end
 
     set :cloud, Rubber.cloud(self)
 
